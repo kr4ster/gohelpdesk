@@ -1,0 +1,13 @@
+{
+	"Session": {
+		"SecretKey": "ThI$isABUNchOfRAnDOmCh4r$",
+		"Name": "gohelpdesk.a",
+		"Options": {
+			"Path": "/",
+			"Domain": "",
+			"MaxAge": 28800,
+			"Secure": false,
+			"HttpOnly": true
+		}
+	}
+}

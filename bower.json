@@ -1,0 +1,21 @@
+{
+  "name": "src",
+  "description": "",
+  "main": "index.js",
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "^2.2.2",
+    "modernizr": "^3.3.1",
+    "lodash": "^4.7.0"
+  }
+}
