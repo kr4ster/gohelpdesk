@@ -61,6 +61,20 @@ func RegisterPOST(w http.ResponseWriter, r *http.Request) {
 	_, err := model.UserByEmail(email)
 
 	if err == model.ErrNoResult {
+		ex := model.UserCreate(first_name, last_name, email, password)
 
+		if ex != nil {
+			log.Println(ex)
+			sess.AddFlash(view.Flash{"An error occurred on the server. Please try again later."})
+			sess.Save(r, w)
+		} else {
+			sess.AddFlash(view.Flash{"Account created successfully for: " + email, view.FlashSuccess})
+			sess.Save(r, w)
+		} else {
+			sess.AddFlash(view.Flash{"Account already exists for: " + email, view.FlashError})
+			sess.Save(r, w)
+		}
 	}
+
+	RegisterGET(w, r)
 }
