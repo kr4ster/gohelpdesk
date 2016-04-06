@@ -3,7 +3,7 @@ package controller
 import (
 	"net/http"
 
-	"github.com/kr4ster/gohelpdesk/share/view"
+	"github.com/kr4ster/gohelpdesk/shared/view"
 )
 
 func AboutGET(w http.ResponseWriter, r *http.Request) {

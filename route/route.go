@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/kr4ster/gohelpdesk/controller"
-	"github.com/kr4ster/gohelpdesk/middleware/acl"
-	"github.com/kr4ster/gohelpdesk/route/middleware/httprouterwrapper"
+	"github.com/kr4ster/gohelpdesk/route/middleware/acl"
+	"github.com/kr4ster/gohelpdesk/route/middleware/httproutewrapper"
 	"github.com/kr4ster/gohelpdesk/route/middleware/logrequest"
 	"github.com/kr4ster/gohelpdesk/route/middleware/pprofhandler"
 	"github.com/kr4ster/gohelpdesk/shared/session"
@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/context"
 	"github.com/julienschmidt/httprouter"
 	"github.com/kr4ster/csrfbanana"
-	"hitbug.com/justinas/alice"
+	"github.com/justinas/alice"
 )
 
 func Load() http.Handler {
