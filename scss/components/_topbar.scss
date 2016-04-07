@@ -1,0 +1,55 @@
+﻿.top-bar {
+    position: fixed;
+    background-color: #11ABCC;
+    height: 56px;
+    width: 100%;
+    color: #fff;
+
+    &::after {
+        clear: both;
+    }
+
+    nav {
+        margin-top: 20px;
+        margin-left: 10px;
+
+        li {
+            display: inline-block;
+
+            a {
+                border-radius: 5px;
+                cursor: pointer;
+                padding: 5px 15px;
+
+                &:hover,
+                &.selected {
+                    background: rgba(83,207,221,0.75);
+                }
+            }
+        }
+    }
+
+    .avatar {
+        margin-top: 5px;
+        margin-right: 5px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius:50%;
+        -o-border-radius: 50%;
+        border-radius: 50%; 
+    }
+}
+
+.top-bar-title {
+    float: left;
+    margin-left: 5px;
+    margin-top: 20px;
+}
+
+.top-bar-left {
+    float: left;
+}
+
+.top-bar-right {
+    float: right;
+}

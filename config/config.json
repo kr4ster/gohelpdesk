@@ -1,7 +1,28 @@
 {
+	"Email": {
+		"Username": "",
+		"Password": "",
+		"Hostname": "",
+		"Port": 25,
+		"From": ""
+	},
+	"Recaptcha": {
+		"Enabled": false,
+		"Secret": "",
+		"SiteKey": ""
+	},
+	"Server": {
+		"Hostname": "",
+		"UseHTTP": true,
+		"UseHTTPS": false,
+		"HTTPPort": 8088,
+		"HTTPSPort": 443,
+		"CertFile": "tls/server.crt",
+		"KeyFile": "tls/server.key"
+	},
 	"Session": {
-		"SecretKey": "ThI$isABUNchOfRAnDOmCh4r$",
-		"Name": "gohelpdesk.a",
+		"SecretKey": "@r4B?EThaSEh_drudR7P_hub=s#s2Pah",
+		"Name": "hd.a",
 		"Options": {
 			"Path": "/",
 			"Domain": "",
@@ -9,5 +30,17 @@
 			"Secure": false,
 			"HttpOnly": true
 		}
+	},
+	"Template": {
+		"Root": "base",
+		"Children": [
+		]
+	},
+	"View": {
+		"BaseURI": "/",
+		"Extension": "tmpl",
+		"Folder": "template",
+		"Name": "blank",
+		"Caching": true
 	}
 }

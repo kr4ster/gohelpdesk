@@ -25,13 +25,13 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	p := context.Get(r, "param").(httprouter.Params)
 
 	switch p.ByName("pprof") {
-		case "/cmdline"
-			pprof.Cmdline(w, r)
-		case "/profile"
-			pprof.Profile(w, r)
-		case "/symbol"
-			pprof.Symbol(w, r)
-		default:
-			pprof.Index(w, r)
+	case "/cmdline":
+		pprof.Cmdline(w, r)
+	case "/profile":
+		pprof.Profile(w, r)
+	case "/symbol":
+		pprof.Symbol(w, r)
+	default:
+		pprof.Index(w, r)
 	}
 }

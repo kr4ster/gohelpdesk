@@ -25,7 +25,7 @@ var (
 	FlashNotice  = "alert-info"
 	FlashWarning = "alert-warning"
 
-	childTemplates     []strings
+	childTemplates     []string
 	rootTemplate       string
 	templateCollection = make(map[string]*template.Template)
 	pluginCollection   = make(template.FuncMap)
@@ -46,7 +46,7 @@ type View struct {
 	Extension string
 	Folder    string
 	Name      string
-	Caching   string
+	Caching   bool
 	Vars      map[string]interface{}
 	request   *http.Request
 }
@@ -154,7 +154,7 @@ func (v *View) RenderSingle(w http.ResponseWriter) {
 	pc := pluginCollection
 	mutexPlugins.RUnlock()
 
-	templateCollection := []string{v.Name}
+	templateList := []string{v.Name}
 
 	// List of template names
 	/*templateList := make([]string, 0)
@@ -200,7 +200,7 @@ func (v *View) RenderSingle(w http.ResponseWriter) {
 			case Flash:
 				v.Vars["flashes"].([]Flash)[i] = f.(Flash)
 			default:
-				v.Vars["flashes"].([]Flash)[i] = Flash(f.(string), "alert-box")
+				v.Vars["flashes"].([]Flash)[i] = Flash{f.(string), "alert-box"}
 			}
 		}
 		sess.Save(v.request, w)
@@ -227,7 +227,7 @@ func (v *View) Render(w http.ResponseWriter) {
 	mutexPlugins.RUnlock()
 
 	// If the template collection is not cached or caching is disabled
-	if !ok || viewInfo.Caching {
+	if !ok || !viewInfo.Caching {
 		// List of template names
 		templateList := make([]string, 0)
 		templateList = append(templateList, rootTemplate)
@@ -265,7 +265,7 @@ func (v *View) Render(w http.ResponseWriter) {
 
 	// Get the flashes for the template
 	if flashes := sess.Flashes(); len(flashes) > 0 {
-		v.Vars["flashes"] = make([]flash, len(flashes))
+		v.Vars["flashes"] = make([]Flash, len(flashes))
 		for i, f := range flashes {
 			switch f.(type) {
 			case Flash:
@@ -328,4 +328,24 @@ func peekFlashes(w http.ResponseWriter, r *http.Request) []Flash {
 			}
 		}
 	}
+
+	return v
+}
+
+// Repopulate updates the dst map so the form fields can be refilled
+func Repopuldate(list []string, src url.Values, dst map[string]interface{}) {
+	for _, v := range list {
+		dst[v] = src.Get(v)
+	}
+}
+
+// FileTime returns the modification time of the file
+func FileTime(name string) (string, error) {
+	fi, err := os.Stat(name)
+	if err != nil {
+		return "", err
+	}
+
+	mtime := fi.ModTime().Unix()
+	return fmt.Sprintf("%v", mtime), nil
 }

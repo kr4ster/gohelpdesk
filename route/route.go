@@ -5,15 +5,15 @@ import (
 
 	"github.com/kr4ster/gohelpdesk/controller"
 	"github.com/kr4ster/gohelpdesk/route/middleware/acl"
-	"github.com/kr4ster/gohelpdesk/route/middleware/httproutewrapper"
+	hr "github.com/kr4ster/gohelpdesk/route/middleware/httproutewrapper"
 	"github.com/kr4ster/gohelpdesk/route/middleware/logrequest"
 	"github.com/kr4ster/gohelpdesk/route/middleware/pprofhandler"
 	"github.com/kr4ster/gohelpdesk/shared/session"
 
 	"github.com/gorilla/context"
 	"github.com/julienschmidt/httprouter"
-	"github.com/kr4ster/csrfbanana"
 	"github.com/justinas/alice"
+	"github.com/kr4ster/csrfbanana"
 )
 
 func Load() http.Handler {
@@ -40,8 +40,8 @@ func routes() *httprouter.Router {
 		ThenFunc(controller.Error404)
 
 	r.GET("/static/*filepath", hr.Handler(alice.
-		New()
-		.ThenFunc(controller.Static)))
+		New().
+		ThenFunc(controller.Static)))
 
 	// Home page
 	r.GET("/", hr.Handler(alice.
@@ -49,23 +49,27 @@ func routes() *httprouter.Router {
 		ThenFunc(controller.Index)))
 
 	// Login
-	r.GET("/login", hr.Handler(alice.
-		New(acl.DisallowAuth).
-		ThenFunc(controller.LoginGET)))
-	r.POST("/login", hr.Handler(alice.
-		New(acl.DisallowAuth).
-		ThenFunc(controller.LoginPOST)))
-	r.GET("/logout", hr.Handler(alice.
-		New().
-		ThenFunc(controller.Logout)))
+	/*
+		r.GET("/login", hr.Handler(alice.
+			New(acl.DisallowAuth).
+			ThenFunc(controller.LoginGET)))
+		r.POST("/login", hr.Handler(alice.
+			New(acl.DisallowAuth).
+			ThenFunc(controller.LoginPOST)))
+		r.GET("/logout", hr.Handler(alice.
+			New().
+			ThenFunc(controller.Logout)))
+	*/
 
 	// Register
-	r.GET("/register", hr.Handler(alice.
-		New(acl.DisallowAuth).
-		ThenFunc(controller.RegisterGET)))
-	r.POST("/register", hr.Handler(alice.
-		New(acl.DisallowAuth).
-		ThenFunc(controller.RegisterPOST)))
+	/*
+		r.GET("/register", hr.Handler(alice.
+			New(acl.DisallowAuth).
+			ThenFunc(controller.RegisterGET)))
+		r.POST("/register", hr.Handler(alice.
+			New(acl.DisallowAuth).
+			ThenFunc(controller.RegisterPOST)))
+	*/
 
 	// About
 	r.GET("/about", hr.Handler(alice.
@@ -90,7 +94,7 @@ func middleware(h http.Handler) http.Handler {
 	csrfbanana.TokenName = "token"
 	csrfbanana.SingleToken = false
 	h = cs
-	
+
 	// Log every request
 	h = logrequest.Handler(h)
 
